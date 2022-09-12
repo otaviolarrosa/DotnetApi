@@ -3,6 +3,7 @@ using Consumers;
 using Infrastructure.Extensions;
 using Producers;
 using Serilog;
+using StreamNet;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +27,7 @@ builder.Services.RegisterApplicationDependencies(builder.Configuration);
 builder.Services.RegisterInfrastructureDependencies(builder.Configuration);
 builder.Services.AddProducers();
 builder.Services.AddConsumers();
+builder.Services.AddTopicManagement();
 
 var app = builder.Build();
 app.RunMigrations();
@@ -42,4 +44,3 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-
