@@ -2,6 +2,7 @@
 using Application.UseCases.User.RequestCreateUser;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using Application.UseCases.User.RequestCreateUser.Input;
 
 namespace Api.Controllers
 {
@@ -37,3 +38,4 @@ namespace Api.Controllers
         }
     }
 }
+

@@ -1,5 +1,6 @@
-﻿using Application.Infrastructure.Data.Repositories;
+﻿using Application.Infrastructure.Data.Postgres.Repositories;
 using Application.UseCases.User.CreateUser.Input;
+using Application.UseCases.User.RequestCreateUser.Input;
 using Microsoft.Extensions.Logging;
 
 namespace Application.UseCases.User.CreateUser

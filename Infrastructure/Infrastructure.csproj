@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\Context\" />
+    <Folder Include="Data\Postgres" />
   </ItemGroup>
 
 </Project>

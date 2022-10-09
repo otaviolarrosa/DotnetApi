@@ -1,10 +1,10 @@
-﻿using Application.Infrastructure.Data.Repositories;
+﻿using System.Linq.Expressions;
+using Application.Infrastructure.Data.Postgres.Repositories;
 using Domain.Entities;
-using Infrastructure.Data.Context;
+using Infrastructure.Data.Postgres.Context;
 using Microsoft.Extensions.DependencyInjection;
-using System.Linq.Expressions;
 
-namespace Infrastructure.Data.Repositories
+namespace Infrastructure.Data.Postgres.Repositories
 {
 
     public class Repository<T> : IRepository<T> where T : EntityBase

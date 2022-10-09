@@ -1,4 +1,4 @@
-﻿namespace Application.UseCases.User.CreateUser.Input
+﻿namespace Application.UseCases.User.RequestCreateUser.Input
 {
     public class RequestCreateUserInput
     {

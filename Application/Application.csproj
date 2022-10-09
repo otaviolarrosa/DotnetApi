@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Infrastructure\Data\Postgres" />
     <Folder Include="UseCases\User\CreateUser\Output\" />
   </ItemGroup>
 

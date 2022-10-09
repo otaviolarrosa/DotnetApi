@@ -1,7 +1,7 @@
-﻿using Domain.Entities;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
+using Domain.Entities;
 
-namespace Application.Infrastructure.Data.Repositories
+namespace Application.Infrastructure.Data.Postgres.Repositories
 {
     public interface IRepository<T> where T : EntityBase
     {

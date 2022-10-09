@@ -1,7 +1,7 @@
 ﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Data.Context
+namespace Infrastructure.Data.Postgres.Context
 {
     public class DataContext : DbContext
     {

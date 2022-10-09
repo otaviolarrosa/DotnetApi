@@ -3,10 +3,12 @@ using Events.User;
 using Microsoft.Extensions.Logging;
 using StreamNet.Consumers;
 using Application.UseCases.User.CreateUser.Input;
+using Application.UseCases.User.RequestCreateUser.Input;
 
 namespace Consumers.User
 {
     [ConsumerGroup("RequestCreateUserEventConsumer")]
+    [TopicName("Events.User.RequestCreateUserEvent")]
     public class CreateUserEventConsumer : Consumer<RequestCreateUserEvent>
     {
         private readonly ICreateUserUseCase _useCase;

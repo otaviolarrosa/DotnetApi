@@ -1,7 +1,7 @@
-﻿using Application.Infrastructure.Data.Repositories;
+﻿using Application.Infrastructure.Data.Postgres.Repositories;
 using Domain.Entities;
-using Infrastructure.Data.Context;
-using Infrastructure.Data.Repositories;
+using Infrastructure.Data.Postgres.Context;
+using Infrastructure.Data.Postgres.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

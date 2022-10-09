@@ -1,4 +1,5 @@
 ﻿using Application.UseCases.User.CreateUser.Input;
+using Application.UseCases.User.RequestCreateUser.Input;
 using Events.User;
 using Microsoft.Extensions.Logging;
 using StreamNet.Producers;
