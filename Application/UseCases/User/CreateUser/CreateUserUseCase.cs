@@ -1,4 +1,5 @@
-﻿using Application.Infrastructure.Data.Postgres.Repositories;
+﻿using Application.Infrastructure.Data.MongoDb.Repositories;
+using Application.Infrastructure.Data.Postgres.Repositories;
 using Application.UseCases.User.CreateUser.Input;
 using Application.UseCases.User.RequestCreateUser.Input;
 using Microsoft.Extensions.Logging;
@@ -7,10 +8,10 @@ namespace Application.UseCases.User.CreateUser
 {
     public class CreateUserUseCase : ICreateUserUseCase
     {
-        private readonly IRepository<Domain.Entities.User> _repository;
+        private readonly IMongoRepository<Domain.Entities.User> _repository;
         private readonly ILogger<CreateUserUseCase> _logger;
 
-        public CreateUserUseCase(IRepository<Domain.Entities.User> repository, ILogger<CreateUserUseCase> logger)
+        public CreateUserUseCase(IMongoRepository<Domain.Entities.User> repository, ILogger<CreateUserUseCase> logger)
         {
             _repository = repository;
             _logger = logger;
@@ -19,9 +20,8 @@ namespace Application.UseCases.User.CreateUser
         public async Task ExecuteAsync(RequestCreateUserInput input)
         {
             var entity = new Domain.Entities.User(input.FirstName, input.LastName, input.Address);
-            _repository.Add(entity);
+            await _repository.InsertOneAsync(entity);
             _logger.LogInformation("Saved User {userId} in database", entity.Id);
-            return;
         }
     }
 }

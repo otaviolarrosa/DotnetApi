@@ -30,7 +30,7 @@ builder.Services.AddConsumers();
 builder.Services.AddTopicManagement();
 
 var app = builder.Build();
-app.RunMigrations();
+app.RunMigrations(builder.Configuration);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using StreamNet.Consumers;
 using Application.UseCases.User.CreateUser.Input;
 using Application.UseCases.User.RequestCreateUser.Input;
+using MongoDB.Driver;
 
 namespace Consumers.User
 {
@@ -22,9 +23,17 @@ namespace Consumers.User
 
         public override async Task HandleAsync()
         {
-            _logger.LogInformation("Received event {event} with values {@message}", nameof(RequestCreateUserEvent), Message);
-            await _useCase.ExecuteAsync(new RequestCreateUserInput(Message.FirstName, Message.LastName, Message.Address));
-            _logger.LogInformation("Ended event {event} with values {@message}", nameof(RequestCreateUserEvent), Message);
+            try
+            {
+                _logger.LogInformation("Received event {event} with values {@message}", nameof(RequestCreateUserEvent), Message);
+                await _useCase.ExecuteAsync(new RequestCreateUserInput(Message.FirstName, Message.LastName, Message.Address));
+                _logger.LogInformation("Ended event {event} with values {@message}", nameof(RequestCreateUserEvent), Message);
+            }
+            catch (MongoWriteException ex)
+            {
+                if(ex.WriteError.Category == ServerErrorCategory.DuplicateKey)
+                    _logger.LogError(ex,"Unique key detected for values: {input}", Message);
+            }
         }
     }
 }

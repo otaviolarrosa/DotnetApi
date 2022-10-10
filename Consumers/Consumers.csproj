@@ -12,4 +12,8 @@
     <ProjectReference Include="..\Events\Events.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="MongoDB.Driver" Version="2.17.1" />
+  </ItemGroup>
+
 </Project>

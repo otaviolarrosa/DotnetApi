@@ -1,5 +1,6 @@
 ﻿using Application.Infrastructure.Data.Postgres.Repositories;
 using Domain.Entities;
+using Infrastructure.Data.MongoDb.Extensions;
 using Infrastructure.Data.Postgres.Context;
 using Infrastructure.Data.Postgres.Repositories;
 using Microsoft.AspNetCore.Builder;
@@ -13,23 +14,36 @@ namespace Infrastructure.Extensions
     {
         public static void RegisterInfrastructureDependencies(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddTransient<DataContext>();
+            var usePostgres = Convert.ToBoolean(configuration.GetSection("DatabaseUsage:UsePostgres").Value);
+            var useMongoDb = Convert.ToBoolean(configuration.GetSection("DatabaseUsage:UseMongoDb").Value);
 
-            services.AddDbContext<DataContext>(options => options
-                .EnableSensitiveDataLogging()
-                .UseNpgsql(configuration.GetConnectionString("Database")), ServiceLifetime.Transient);
+            if (usePostgres)
+            {
+                services.AddTransient<DataContext>();
 
-            services.AddTransient<IRepository<User>, Repository<User>>();
+                services.AddDbContext<DataContext>(options => options
+                    .EnableSensitiveDataLogging()
+                    .UseNpgsql(configuration.GetConnectionString("Database")), ServiceLifetime.Transient);
+                services.AddTransient<IRepository<User>, Repository<User>>();
+            }
+
+            if (useMongoDb)
+            {
+                services.AddMongoDb(configuration);
+            }
         }
 
-
-        public static void RunMigrations(this WebApplication app)
+        public static void RunMigrations(this WebApplication app, IConfiguration configuration)
         {
-            using (var scope = app.Services.CreateScope())
+            var usePostgres = Convert.ToBoolean(configuration.GetSection("DatabaseUsage:UsePostgres").Value);
+            if (usePostgres)
             {
-                var services = scope.ServiceProvider;
-                var context = services.GetRequiredService<DataContext>();
-                context.Database.Migrate();
+                using (var scope = app.Services.CreateScope())
+                {
+                    var services = scope.ServiceProvider;
+                    var context = services.GetRequiredService<DataContext>();
+                    context.Database.Migrate();
+                }
             }
         }
     }
